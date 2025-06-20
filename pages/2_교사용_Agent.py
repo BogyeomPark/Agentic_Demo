@@ -23,6 +23,11 @@ if "phase" not in st.session_state:
 if "teacher_log" not in st.session_state:  # ✅ 추가됨
     st.session_state.teacher_log = []
 
+# ✅ 채팅창 HTML 구성
+chat_bubbles = "".join([
+    f'<div class="chat-bubble {"user" if turn["role"] == "teacher" else "assistant"}">{turn["msg"]}</div>'
+    for turn in st.session_state.log
+])
 
 # ✅ 채팅창 출력 + 자동 스크롤
 components.html(f"""
