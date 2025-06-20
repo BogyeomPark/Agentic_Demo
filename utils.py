@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
+if "openai" in st.secrets:
+    openai.api_key = st.secrets["openai"]["api_key"]
 if not api_key:
     raise ValueError("❌ OPENAI_API_KEY 환경변수가 설정되지 않았습니다.")
 
