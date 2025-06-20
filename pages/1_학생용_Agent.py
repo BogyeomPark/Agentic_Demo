@@ -27,7 +27,7 @@ components.html(f"""
 
 <style>
 .chat-container {{
-    height: 400px;
+    height: 350px;
     overflow-y: auto;
     padding: 1em;
     border: 1px solid #ccc;
