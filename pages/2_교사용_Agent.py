@@ -22,21 +22,26 @@ if "phase" not in st.session_state:
 if "teacher_log" not in st.session_state:  # ✅ 추가됨
     st.session_state.teacher_log = []
 
-# ✅ 채팅창 스타일링
-st.markdown("""
+
+# ✅ 채팅창 출력 + 자동 스크롤
+components.html(f"""
+<div class="chat-container" id="chatbox">
+    {chat_bubbles}
+</div>
+
 <style>
-.chat-container {
-    height: 400px;
+.chat-container {{
+    height: 350px;
     overflow-y: auto;
     padding: 1em;
     border: 1px solid #ccc;
     border-radius: 10px;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-}
-.chat-bubble {
+}}
+.chat-bubble {{
     padding: 0.8em 1em;
     margin: 0.5em 0;
     border-radius: 12px;
@@ -44,40 +49,26 @@ st.markdown("""
     display: inline-block;
     font-size: 1rem;
     word-wrap: break-word;
-}
-.user {
+}}
+.user {{
     background-color: #dcf8c6;
     align-self: flex-end;
     text-align: right;
-}
-.assistant {
+}}
+.assistant {{
     background-color: #f1f0f0;
     align-self: flex-start;
     text-align: left;
-}
+}}
 </style>
-""", unsafe_allow_html=True)
 
-# ✅ 채팅 출력
-chat_html = '<div class="chat-container" id="chatbox">'
-for turn in st.session_state.log:
-    cls = "user" if turn["role"] == "student" else "assistant"
-    chat_html += f'<div class="chat-bubble {cls}">{turn["msg"]}</div>'
-chat_html += '</div>'
-st.markdown(chat_html, unsafe_allow_html=True)
-
-# 자동 스크롤
-st.markdown("""
 <script>
-const chatbox = document.getElementById("chatbox");
-if (chatbox) {
-    const observer = new MutationObserver(() => {
+    const chatbox = document.getElementById("chatbox");
+    if (chatbox) {{
         chatbox.scrollTop = chatbox.scrollHeight;
-    });
-    observer.observe(chatbox, { childList: true });
-}
+    }}
 </script>
-""", unsafe_allow_html=True)
+""", height=420)
 
 # ✅ 입력 폼
 with st.form(key="teacher_form", clear_on_submit=True):
