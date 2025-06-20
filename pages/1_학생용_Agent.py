@@ -57,16 +57,15 @@ for turn in st.session_state.log:
 chat_html += '</div>'
 st.markdown(chat_html, unsafe_allow_html=True)
 
-# 자동 스크롤
+# ✅ 자동 스크롤: 더 정확하게 작동하도록 개선
 st.markdown("""
 <script>
 const chatbox = document.getElementById("chatbox");
-if (chatbox) {
-    const observer = new MutationObserver(() => {
+setTimeout(() => {
+    if (chatbox) {
         chatbox.scrollTop = chatbox.scrollHeight;
-    });
-    observer.observe(chatbox, { childList: true });
-}
+    }
+}, 100);
 </script>
 """, unsafe_allow_html=True)
 
