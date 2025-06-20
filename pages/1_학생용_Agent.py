@@ -25,7 +25,6 @@ components.html(f"""
     {chat_bubbles}
 </div>
 
-st.markdown("""
 <style>
 .chat-container {
     max-height: 65vh;
