@@ -6,11 +6,11 @@ st.set_page_config(page_title="교사용 Agent", page_icon="🧑‍🏫")
 st.markdown("<h1 style='text-align: center;'>🧑‍🏫 교사용 Agent</h1>", unsafe_allow_html=True)
 
 # ✅ 학생 로그 불러오기
-if "student_log" not in st.session_state:
-    st.error("학생 로그가 세션에 없습니다. 학생 페이지에서 먼저 상담을 진행해주세요.")
+if "student_log_for_teacher" not in st.session_state:
+    st.error("학생용 에이전트에서 상담을 먼저 진행해주세요.")
     st.stop()
-student_log = st.session_state["student_log"]
-
+else:
+    student_log = st.session_state["student_log_for_teacher"]
 
 
 
