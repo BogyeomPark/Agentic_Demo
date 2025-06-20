@@ -98,6 +98,6 @@ if st.button("✅ 교사용 Agent로 넘어가기"):
     st.session_state.phase = "input"
 
     # 3. 알림 출력 (원한다면)
-    st.success("✅ 상담 기록이 저장되었고, 새 상담을 시작할 준비가 되었습니다.")
+    st.success("✅ 상담 기록이 세션에 저장되었습니다. 상단 메뉴에서 교사용 Agent를 선택하세요.")
     st.rerun()  # 화면 재렌더링으로 반영
 
