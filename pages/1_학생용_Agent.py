@@ -24,19 +24,21 @@ components.html(f"""
 <div class="chat-container" id="chatbox">
     {chat_bubbles}
 </div>
+
+st.markdown("""
 <style>
-.chat-container {{
-    height: 400px;
+.chat-container {
+    max-height: 65vh;
     overflow-y: auto;
     padding: 1em;
     border: 1px solid #ccc;
     border-radius: 10px;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-}}
-.chat-bubble {{
+}
+.chat-bubble {
     padding: 0.8em 1em;
     margin: 0.5em 0;
     border-radius: 12px;
@@ -44,18 +46,20 @@ components.html(f"""
     display: inline-block;
     font-size: 1rem;
     word-wrap: break-word;
-}}
-.user {{
+}
+.user {
     background-color: #dcf8c6;
     align-self: flex-end;
     text-align: right;
-}}
-.assistant {{
+}
+.assistant {
     background-color: #f1f0f0;
     align-self: flex-start;
     text-align: left;
-}}
+}
 </style>
+""", unsafe_allow_html=True)
+
 <script>
     const chatbox = window.frameElement?.contentWindow?.document?.getElementById("chatbox") || document.getElementById("chatbox");
     if (chatbox) {{
