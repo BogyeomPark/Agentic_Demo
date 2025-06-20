@@ -114,11 +114,11 @@ def ask_student_agent(chat_log):
         return f"⚠️ GPT 응답 중 오류가 발생했습니다: {str(e)}"
 
 
-def ask_teacher_agent(teacher_input, chat_log, curriculum_data):
+def ask_teacher_agent(teacher_input, chat_log):
     system_prompt = """
     너는 고등학교 담임교사와 함께 진로 및 진학 상담을 보조하는 AI 에이전트야.
 
-    교사는 실제로 학생과 대면 상담을 진행하고 있으며, 너는 학생의 대화 로그(student_log)와 과목·학과 정보(curriculum_data)를 바탕으로 상담을 자연스럽게 이어갈 수 있도록 도와주는 역할이야.
+    교사는 실제로 학생과 대면 상담을 진행하고 있으며, 너는 학생의 대화 로그(student_log)를 바탕으로 상담을 자연스럽게 이어갈 수 있도록 도와주는 역할이야.
 
     ❗️중요한 지침:
     - 학생의 흥미, 진로, 학과 등은 **student_log 대화 기반으로 유추**해야 하며, 절대로 단정적으로 말하지 마.
@@ -296,3 +296,4 @@ def ask_teacher_agent(teacher_input, chat_log, curriculum_data):
         return response.choices[0].message.content
     except Exception as e:
         return f"⚠️ GPT 응답 중 오류가 발생했습니다: {str(e)}"
+
