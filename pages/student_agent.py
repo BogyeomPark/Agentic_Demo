@@ -90,5 +90,14 @@ if st.session_state.phase == "response":
 
 # ✅ 대화 종료 → 저장 + 교사 페이지 자동 이동
 if st.button("✅ 교사용 Agent로 넘어가기"):
+    # 1. 기존 상담 기록 복사
     st.session_state["student_log_for_teacher"] = st.session_state.log.copy()
-    st.success("✅ 상담 기록이 세션에 저장되었습니다. 상단 메뉴에서 교사용 Agent를 선택하세요.")
+
+    # 2. 현재 채팅창 초기화
+    st.session_state.log = []
+    st.session_state.phase = "input"
+
+    # 3. 알림 출력 (원한다면)
+    st.success("✅ 상담 기록이 저장되었고, 새 상담을 시작할 준비가 되었습니다.")
+    st.rerun()  # 화면 재렌더링으로 반영
+
