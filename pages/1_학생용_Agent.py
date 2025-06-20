@@ -65,7 +65,7 @@ setTimeout(() => {
     if (chatbox) {
         chatbox.scrollTop = chatbox.scrollHeight;
     }
-}, 100);
+}, 300);
 </script>
 """, unsafe_allow_html=True)
 
