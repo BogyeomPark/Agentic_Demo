@@ -81,7 +81,7 @@ with st.form(key="teacher_form", clear_on_submit=True):
     teacher_input = st.text_input("메시지를 입력하세요:", key="teacher_input_input")
     submitted = st.form_submit_button("보내기")
     if submitted and teacher_input:
-        st.session_state.log.append({"role": "student", "msg": teacher_input})
+        st.session_state.log.append({"role": "teacher", "msg": teacher_input})
         st.session_state.teacher_log.append({"role": "teacher", "msg": teacher_input})  # ✅ 교사 입력 저장
         st.session_state.phase = "response"
         st.rerun()
