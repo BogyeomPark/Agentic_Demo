@@ -26,7 +26,7 @@ components.html(f"""
 </div>
 
 <style>
-.chat-container {
+.chat-container {{
     max-height: 65vh;
     overflow-y: auto;
     padding: 1em;
@@ -36,8 +36,8 @@ components.html(f"""
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-}
-.chat-bubble {
+}}
+.chat-bubble {{
     padding: 0.8em 1em;
     margin: 0.5em 0;
     border-radius: 12px;
@@ -45,22 +45,21 @@ components.html(f"""
     display: inline-block;
     font-size: 1rem;
     word-wrap: break-word;
-}
-.user {
+}}
+.user {{
     background-color: #dcf8c6;
     align-self: flex-end;
     text-align: right;
-}
-.assistant {
+}}
+.assistant {{
     background-color: #f1f0f0;
     align-self: flex-start;
     text-align: left;
-}
+}}
 </style>
-""", unsafe_allow_html=True)
 
 <script>
-    const chatbox = window.frameElement?.contentWindow?.document?.getElementById("chatbox") || document.getElementById("chatbox");
+    const chatbox = document.getElementById("chatbox");
     if (chatbox) {{
         chatbox.scrollTop = chatbox.scrollHeight;
     }}
