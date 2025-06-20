@@ -4,11 +4,14 @@ import streamlit as st
 from dotenv import load_dotenv
 
 load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
 
-if "openai" in st.secrets:
-    OpenAI.api_key = st.secrets["openai"]["api_key"]
+# ✅ Streamlit Cloud에서 API 키 읽기
+if "openai" in st.secrets and "api_key" in st.secrets["openai"]:
+    api_key = st.secrets["openai"]["api_key"]
+else:
+    raise ValueError("❌ Streamlit secrets.toml에 OpenAI API 키가 설정되지 않았습니다.")
 
+# ✅ OpenAI 클라이언트 생성
 client = OpenAI(api_key=api_key)
 
 def ask_student_agent(chat_log):
