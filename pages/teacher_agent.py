@@ -93,7 +93,7 @@ with st.form(key="teacher_form", clear_on_submit=True):
 if st.session_state.phase == "response":
     with st.spinner("응답 중입니다..."):
         chat_log = st.session_state.log.copy()
-        reply = ask_teacher_agent(chat_log[-1]["msg"], student_log, curriculum_data)
+        reply = ask_teacher_agent(chat_log[-1]["msg"], student_log)
     st.session_state.log.append({"role": "assistant", "msg": reply})
     st.session_state.teacher_log.append({"role": "AI 에이전트", "msg": reply})  # ✅ AI 응답 저장
     st.session_state.phase = "input"
