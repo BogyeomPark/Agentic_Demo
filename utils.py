@@ -271,19 +271,6 @@ def ask_teacher_agent(teacher_input, chat_log):
         "content": f"📚 학생과 AI의 대화 기록:\n{summarized_chat}"
     })
 
-    # 🎓 커리큘럼 데이터 추가
-    if curriculum_data:
-        curriculum_summary = []
-        for dept, content in curriculum_data.items():
-            vision = content.get("vision", "")
-            courses = content.get("courses", {})
-            course_info = "\n".join(f"- {name}: {desc}" for name, desc in courses.items())
-            curriculum_summary.append(f"학과명: {dept}\n비전: {vision}\n과목들:\n{course_info}")
-        messages.append({
-            "role": "system",
-            "content": "📘 전공 및 과목 정보:\n" + "\n\n".join(curriculum_summary)
-        })
-
     # 👩‍🏫 교사 입력
     messages.append({"role": "user", "content": teacher_input})
 
