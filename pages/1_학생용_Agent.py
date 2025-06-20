@@ -1,7 +1,7 @@
 import streamlit as st
 import json
-import webbrowser
 from utils import ask_student_agent
+import streamlit.components.v1 as components
 
 # 페이지 설정
 st.set_page_config(page_title="학생용 Agent", page_icon="🎓")
@@ -13,10 +13,19 @@ if "log" not in st.session_state:
 if "phase" not in st.session_state:
     st.session_state.phase = "input"
 
-# ✅ 채팅창 스타일링 (생략 가능)
-st.markdown("""
+# ✅ 채팅창 HTML 구성
+chat_bubbles = "".join([
+    f'<div class="chat-bubble {"user" if turn["role"] == "student" else "assistant"}">{turn["msg"]}</div>'
+    for turn in st.session_state.log
+])
+
+# ✅ 채팅창 출력 + 자동 스크롤
+components.html(f"""
+<div class="chat-container" id="chatbox">
+    {chat_bubbles}
+</div>
 <style>
-.chat-container {
+.chat-container {{
     height: 400px;
     overflow-y: auto;
     padding: 1em;
@@ -26,8 +35,8 @@ st.markdown("""
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-}
-.chat-bubble {
+}}
+.chat-bubble {{
     padding: 0.8em 1em;
     margin: 0.5em 0;
     border-radius: 12px;
@@ -35,39 +44,25 @@ st.markdown("""
     display: inline-block;
     font-size: 1rem;
     word-wrap: break-word;
-}
-.user {
+}}
+.user {{
     background-color: #dcf8c6;
     align-self: flex-end;
     text-align: right;
-}
-.assistant {
+}}
+.assistant {{
     background-color: #f1f0f0;
     align-self: flex-start;
     text-align: left;
-}
+}}
 </style>
-""", unsafe_allow_html=True)
-
-# ✅ 채팅 출력
-chat_html = '<div class="chat-container" id="chatbox">'
-for turn in st.session_state.log:
-    cls = "user" if turn["role"] == "student" else "assistant"
-    chat_html += f'<div class="chat-bubble {cls}">{turn["msg"]}</div>'
-chat_html += '</div>'
-st.markdown(chat_html, unsafe_allow_html=True)
-
-# ✅ 자동 스크롤: 더 정확하게 작동하도록 개선
-st.markdown("""
 <script>
-const chatbox = document.getElementById("chatbox");
-setTimeout(() => {
-    if (chatbox) {
+    const chatbox = window.frameElement?.contentWindow?.document?.getElementById("chatbox") || document.getElementById("chatbox");
+    if (chatbox) {{
         chatbox.scrollTop = chatbox.scrollHeight;
-    }
-}, 300);
+    }}
 </script>
-""", unsafe_allow_html=True)
+""", height=420)
 
 # ✅ 입력 폼
 with st.form(key="chat_form", clear_on_submit=True):
@@ -87,16 +82,10 @@ if st.session_state.phase == "response":
     st.session_state.phase = "input"
     st.rerun()
 
-# ✅ 대화 종료 → 저장 + 교사 페이지 자동 이동
+# ✅ 상담 종료 → 저장 + 교사용 페이지 이동용 세션
 if st.button("✅ 교사용 Agent로 넘어가기"):
-    # 1. 기존 상담 기록 복사
     st.session_state["student_log_for_teacher"] = st.session_state.log.copy()
-
-    # 2. 현재 채팅창 초기화
     st.session_state.log = []
     st.session_state.phase = "input"
-
-    # 3. 알림 출력 (원한다면)
     st.success("✅ 상담 기록이 세션에 저장되었습니다. 상단 메뉴에서 교사용 Agent를 선택하세요.")
-    st.rerun()  # 화면 재렌더링으로 반영
-
+    st.rerun()
