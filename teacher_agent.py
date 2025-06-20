@@ -6,20 +6,13 @@ st.set_page_config(page_title="교사용 Agent", page_icon="🧑‍🏫")
 st.markdown("<h1 style='text-align: center;'>🧑‍🏫 교사용 Agent</h1>", unsafe_allow_html=True)
 
 # ✅ 학생 로그 불러오기
-try:
-    with open("student_log.json", "r", encoding="utf-8") as f:
-        student_log = json.load(f)
-except FileNotFoundError:
-    st.error("학생 로그 파일이 없습니다.")
+if "student_log" not in st.session_state:
+    st.error("학생 로그가 세션에 없습니다. 학생 페이지에서 먼저 상담을 진행해주세요.")
     st.stop()
+student_log = st.session_state["student_log"]
 
-# ✅ 전공/과목 정보 불러오기
-try:
-    with open("data.json", "r", encoding="utf-8") as f:
-        curriculum_data = json.load(f)
-except FileNotFoundError:
-    st.warning("전공/과목 정보 파일(data.json)이 없습니다.")
-    curriculum_data = {}
+
+
 
 # ✅ 세션 상태 초기화
 if "log" not in st.session_state:
