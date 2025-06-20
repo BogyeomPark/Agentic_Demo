@@ -90,7 +90,5 @@ if st.session_state.phase == "response":
 
 # ✅ 대화 종료 → 저장 + 교사 페이지 자동 이동
 if st.button("✅ 교사용 Agent로 넘어가기"):
-    with open("student_log.json", "w", encoding="utf-8") as f:
-        json.dump(st.session_state.log, f, indent=2, ensure_ascii=False)
-    st.success("✅ 교사용 에이전트로 이동합니다.")
-    # webbrowser.open_new_tab("http://localhost:8502")  # 교사용 페이지 열기
+    st.session_state["student_log_for_teacher"] = st.session_state.log.copy()
+    st.success("✅ 상담 기록이 세션에 저장되었습니다. 상단 메뉴에서 교사용 Agent를 선택하세요.")
