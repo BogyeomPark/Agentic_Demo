@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 from utils import ask_teacher_agent
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="교사용 Agent", page_icon="🧑‍🏫")
 st.markdown("<h1 style='text-align: center;'>🧑‍🏫 교사용 Agent</h1>", unsafe_allow_html=True)
