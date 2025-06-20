@@ -82,7 +82,7 @@ with st.form(key="teacher_form", clear_on_submit=True):
     submitted = st.form_submit_button("보내기")
     if submitted and teacher_input:
         st.session_state.log.append({"role": "student", "msg": teacher_input})
-        st.session_state.teacher_log.append({"role": "교사", "msg": teacher_input})  # ✅ 교사 입력 저장
+        st.session_state.teacher_log.append({"role": "teacher", "msg": teacher_input})  # ✅ 교사 입력 저장
         st.session_state.phase = "response"
         st.rerun()
 
@@ -92,7 +92,7 @@ if st.session_state.phase == "response":
         chat_log = st.session_state.log.copy()
         reply = ask_teacher_agent(chat_log[-1]["msg"], student_log)
     st.session_state.log.append({"role": "assistant", "msg": reply})
-    st.session_state.teacher_log.append({"role": "AI 에이전트", "msg": reply})  # ✅ AI 응답 저장
+    st.session_state.teacher_log.append({"role": "assistant", "msg": reply})  # ✅ AI 응답 저장
     st.session_state.phase = "input"
     st.rerun()
 
