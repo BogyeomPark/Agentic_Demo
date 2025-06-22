@@ -84,10 +84,14 @@ if st.session_state.phase == "response":
     st.session_state.phase = "input"
     st.rerun()
 
-# ✅ 상담 종료 → 저장 + 교사용 페이지 이동용 세션
+# ✅ 상담 종료 → 교사용 페이지 전환 플래그 설정
 if st.button("✅ 교사용 Agent로 넘어가기"):
-    st.session_state["student_log_for_teacher"] = st.session_state.log.copy()
-    st.session_state.log = []
-    st.session_state.phase = "input"
-    st.success("✅ 상담 기록이 세션에 저장되었습니다. 상단 메뉴에서 교사용 Agent를 선택하세요.")
-    st.rerun()
+    st.session_state["go_to_teacher"] = True
+
+# ✅ 플래그가 True일 때만 다음 단계 실행
+if st.session_state.get("go_to_teacher"):
+    st.session_state["student_log_for_teacher"] = st.session_state.log.copy()  # 💾 저장
+    st.session_state.log = []  # 🧹 채팅창 초기화
+    st.session_state.phase = "input"  # 상태 초기화
+    st.session_state["go_to_teacher"] = False  # 플래그 리셋
+    st.rerun()  # 🔁 페이지 재실행
