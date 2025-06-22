@@ -85,7 +85,7 @@ if st.session_state.phase == "response":
     st.rerun()
 
 # ✅ 상담 종료 → 교사용 페이지 전환 플래그 설정
-if st.button("✅ 교사용 Agent로 넘어가기"):
+if st.button("✅ 상담 종료하기"):
     st.session_state["go_to_teacher"] = True
 
 # ✅ 플래그가 True일 때만 다음 단계 실행
